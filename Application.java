@@ -10,15 +10,16 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 	
-	/* 
+	/*
 	 * TODO:
-	 * 2. Add Hibernate DAO
-	 * 3. Finish JSP
-	 * 5. Send my resume
-	 * 6. Research functional interfaces + create an Interface for my Service to implement
-	 * 7. Study Web.XML and how it relates to end points, why they are important in Tomcat
-	 * 8. Review Inner classes
-	 * 5. Research Bootstrap 5 and DataTable
-	 * 6. Do I need to connect endpoints in an abstract class to a Web.XML file
+	 *  - Finish JSP
+	 *  - Research functional interfaces + create an Interface for my Service to implement
+	 *  - Study Web.XML and how it relates to end points, why they are important in Tomcat
+	 *  - Research Bootstrap 5 and DataTable, use DataTable in JSP
+	 *  - Do I need to connect endpoints in an abstract class to a Web.XML file
+	 *  - Think about Cartesian products - am I creating one? 
+	 *  - Write second Hibernate DAO with Score as return type
+	 *  - Figure out how JPA loads associated data from joined tables using a DTO without fetch
+	 *  - Make two new DAO methods: one with Score entity and fetching, one with Score entity and eager fetching (needs different entity class)
 	 * */
 }

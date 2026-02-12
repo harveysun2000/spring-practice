@@ -1,8 +1,11 @@
 package com.example.demo.entities;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,6 +21,9 @@ public class Applicant {
 	
 	@Column(name = "Last_Name")
 	private String lastName;
+	
+	@OneToMany(mappedBy = "applicant")
+	private List<Application> applications;
 	
 	public Applicant() {
 		
@@ -35,6 +41,10 @@ public class Applicant {
 		return lastName;
 	}
 	
+	public List<Application> getApplications() {
+		return applications;
+	}
+	
 	public void setApplicantId(Integer a) {
 		applicantID = a;
 	}
@@ -45,5 +55,9 @@ public class Applicant {
 	
 	public void setLastName(String l) {
 		lastName = l;
+	}
+	
+	public void setApplications(List<Application> a) {
+		applications = a;
 	}
 }

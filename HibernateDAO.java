@@ -43,7 +43,7 @@ public class HibernateDAO {
 		Predicate lastNamePredicate = cb.equal(applicantJoin.get("lastName"), lastName);
 		Predicate compoundPredicate = cb.and(firstNamePredicate, lastNamePredicate);
 		
-		cq.select(cb.construct(ReviewerNameAndScore.class, 
+		cq.select(cb.construct(ReviewerNameAndScore.class,
 				reviewerJoin.get("firstName"),
 				reviewerJoin.get("lastName"),
 				root.get("score")));

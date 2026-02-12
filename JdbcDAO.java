@@ -90,12 +90,12 @@ public class JdbcDAO {
 	*/
 	
 	private static final String GET_SCORES_AND_REVIEWERS_FOR_APPLICANT = """
-			SELECT Reviewers_t.First_Name AS reviewerFirstName, Reviewers_t.Last_Name AS reviewerLastName, Scores_t.Score
-			FROM Scores_t
-			INNER JOIN Reviewers_t ON Scores_t.Reviewer_ID = Reviewers_t.Reviewer_ID
-			INNER JOIN Applications_t ON Scores_t.Application_ID = Applications_t.Application_ID
-            INNER JOIN Applicants_t ON Applications_t.Applicant_ID = Applicants_t.Applicant_ID
-			WHERE Applicants_t.First_Name = :firstName AND Applicants_t.Last_Name = :lastName;
+			SELECT r.First_Name AS reviewerFirstName, r.Last_Name AS reviewerLastName, s.Score
+			FROM Scores_t as s
+			INNER JOIN Reviewers_t AS r ON s.Reviewer_ID = r.Reviewer_ID
+			INNER JOIN Applications_t AS ap ON s.Application_ID = ap.Application_ID
+            INNER JOIN Applicants_t AS a ON ap.Applicant_ID = a.Applicant_ID
+			WHERE a.First_Name = :firstName AND a.Last_Name = :lastName;
 			""";
 	
 	/*
