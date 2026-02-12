@@ -2,6 +2,7 @@ package com.example.demo;
 
 import org.springframework.web.bind.annotation.*;
 
+import com.example.demo.entities.Score;
 import com.example.demo.types.ReviewerNameAndScore;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,12 @@ public class CollegeApplicationsController {
 	public List<ReviewerNameAndScore> getScoresHibernate(@RequestParam("studentName") String studentName /* Model model */) {
 		System.out.println("[DEBUG] Controller received request on Hibernate path.");
 		List<ReviewerNameAndScore> scores = collegeApplicationsService.getScoresByStudentNameHibernate(studentName);
+		return scores;
+	}
+	
+	@GetMapping("/hibernateScores")
+	public List<Score> getScoresHibernateTwo(@RequestParam("studentName") String studentName) {
+		List<Score> scores = collegeApplicationsService.getListOfScores(studentName);
 		return scores;
 	}
 }

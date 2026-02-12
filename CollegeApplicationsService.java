@@ -3,6 +3,7 @@ package com.example.demo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.demo.entities.Score;
 import com.example.demo.types.ReviewerNameAndScore;
 
 import java.util.List;
@@ -25,6 +26,11 @@ public class CollegeApplicationsService {
 	@Transactional
 	public List<ReviewerNameAndScore> getScoresByStudentNameHibernate(String studentName) {
 		return hibernateDAO.getScoresByStudentName(studentName);
+	}
+	
+	@Transactional
+	public List<Score> getListOfScores(String studentName) {
+		return hibernateDAO.getListOfScores(studentName);
 	}
 	
 }

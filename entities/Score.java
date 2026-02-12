@@ -1,5 +1,7 @@
 package com.example.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -18,17 +20,19 @@ public class Score {
 	// JoinColumn points to the column in the One side of the mapping
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "Application_ID")
+	@JsonBackReference
 	private Application application;
 	
 	// Specify our own column in the entity for clarity
-	@Column(name = "Application_ID")
+	@Column(name = "Application_ID", insertable=false, updatable=false)
 	private Integer applicationID;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "Reviewer_ID")
+	@JsonBackReference
 	private Reviewer reviewer;
 	
-	@Column(name = "Reviewer_ID")
+	@Column(name = "Reviewer_ID", insertable=false, updatable=false)
 	private Integer reviewerID;
 	
 	@Column(name = "Score")
