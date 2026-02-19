@@ -17,7 +17,5 @@ public class Application {
 	 *  - Study Web.XML and how it relates to end points, why they are important in Tomcat
 	 *  - Research Bootstrap 5 and DataTable, use DataTable in JSP
 	 *  - Do I need to connect endpoints in an abstract class to a Web.XML file
-	 *  - Write second Hibernate DAO with Score as return type
-	 *  - Make two new DAO methods: one with Score entity and fetching, one with Score entity and eager fetching (needs different entity class)
 	 * */
 }

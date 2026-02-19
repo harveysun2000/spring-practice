@@ -1,41 +1,46 @@
 package com.example.demo;
 
-import org.springframework.web.bind.annotation.*;
-
-import com.example.demo.entities.Score;
-import com.example.demo.types.ReviewerNameAndScore;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import java.util.List;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-@RestController
+import com.example.demo.types.ReviewerNameAndScore;
+
+@Controller
 @RequestMapping("/")
 public class CollegeApplicationsController {
 	
 	@Autowired
-	private CollegeApplicationsService collegeApplicationsService;
+	private CollegeApplicationsService service;
 	
-	@GetMapping("/jdbc")
-	public List<ReviewerNameAndScore> getScores(@RequestParam("studentName") String studentName /* Model model */) {
+	@GetMapping("/getTable")
+	@ResponseBody
+	public Map<String, Object> getScoresTable(@RequestParam("studentName") String studentName, @RequestParam("draw") int draw) {
+		List<ReviewerNameAndScore> namesAndScores = service.getScoresByStudentNameHibernate(studentName);
+		// model.addAttribute("result", namesAndScores);
 		
-		// Do access control here
-		// Handle empty response, if other name input
+		System.out.println("[DEBUG] Controller started processing jsonResponse for DataTable");
 		
-		System.out.println("[DEBUG] Controller received request on JDBC path.");
-		List<ReviewerNameAndScore> scores = collegeApplicationsService.getScoresByStudentNameJDBC(studentName);
-		return scores;
+		Map<String, Object> jsonResponse = new HashMap<String, Object>();
+		jsonResponse.put("recordsTotal", namesAndScores.size());
+        jsonResponse.put("recordsFiltered", namesAndScores.size());
+        jsonResponse.put("data", namesAndScores);
+        jsonResponse.put("draw", draw);
+        
+		return jsonResponse;
 	}
 	
-	@GetMapping("/hibernate")
-	public List<ReviewerNameAndScore> getScoresHibernate(@RequestParam("studentName") String studentName /* Model model */) {
-		System.out.println("[DEBUG] Controller received request on Hibernate path.");
-		List<ReviewerNameAndScore> scores = collegeApplicationsService.getScoresByStudentNameHibernate(studentName);
-		return scores;
+	@GetMapping("/index")
+	public String getScores(Model model) {
+		return "index";
 	}
 	
-	@GetMapping("/hibernateScores")
-	public List<Score> getScoresHibernateTwo(@RequestParam("studentName") String studentName) {
-		List<Score> scores = collegeApplicationsService.getListOfScores(studentName);
-		return scores;
-	}
 }
