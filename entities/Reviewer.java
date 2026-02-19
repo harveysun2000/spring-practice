@@ -1,8 +1,13 @@
 package com.example.demo.entities;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,6 +23,10 @@ public class Reviewer {
 	
 	@Column(name = "Last_Name")
 	private String lastName;
+	
+	@OneToMany(mappedBy = "reviewer")
+	@JsonManagedReference
+	private List<Score> scores;
 	
 	public Reviewer() {
 		
@@ -35,6 +44,10 @@ public class Reviewer {
 		return lastName;
 	}
 	
+	public List<Score> getScores() {
+		return scores;
+	}
+	
 	public void setReviewerID(Integer r) {
 		reviewerID = r;
 	}
@@ -45,5 +58,9 @@ public class Reviewer {
 	
 	public void setLastName(String l) {
 		lastName = l;
+	}
+	
+	public void setScores(List<Score> s) {
+		scores = s;
 	}
 }

@@ -1,7 +1,10 @@
 package com.example.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -14,13 +17,23 @@ public class Score {
 	@Column(name = "Score_ID")
 	private Integer scoreID;
 	
-	@ManyToOne
+	// JoinColumn points to the column in the One side of the mapping
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "Application_ID")
+	@JsonBackReference
 	private Application application;
 	
-	@ManyToOne
+	// Specify our own column in the entity for clarity
+	@Column(name = "Application_ID", insertable=false, updatable=false)
+	private Integer applicationID;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "Reviewer_ID")
+	@JsonBackReference
 	private Reviewer reviewer;
+	
+	@Column(name = "Reviewer_ID", insertable=false, updatable=false)
+	private Integer reviewerID;
 	
 	@Column(name = "Score")
 	private Integer score;
@@ -37,8 +50,16 @@ public class Score {
 		return application;
 	}
 	
+	public Integer getApplicationID() {
+		return applicationID;
+	}
+	
 	public Reviewer getReviewer() {
 		return reviewer;
+	}
+	
+	public Integer getReviewerID() {
+		return reviewerID;
 	}
 	
 	public int getScore() {
@@ -53,8 +74,16 @@ public class Score {
 		application = a;
 	}
 	
+	public void setApplicationID(Integer a) {
+		applicationID = a;
+	}
+	
 	public void setReviewer(Reviewer r) {
 		reviewer = r;
+	}
+	
+	public void setReviewerID(Integer r) {
+		reviewerID = r;
 	}
 	
 	public void setScore(Integer s) {
